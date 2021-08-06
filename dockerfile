@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY . /home/vsts/work/1/s/
 
 CMD node .
 
