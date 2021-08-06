@@ -11,7 +11,7 @@ variables:
   dockerRegistryServiceConnection: 'e3553e36-0ade-4399-a77f-7a06832d2bc8'
   imageRepository: 'myapp'
   containerRegistry: 'huynguyencontainer.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildNumber)'
 
   # Agent VM image name
