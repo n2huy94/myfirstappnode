@@ -5,19 +5,6 @@
 trigger:
 - master
 
-variables:
-
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'e3553e36-0ade-4399-a77f-7a06832d2bc8'
-  imageRepository: 'myapp'
-  containerRegistry: 'huynguyencontainer.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/dockerfile'
-  tag: '$(Build.BuildNumber)'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
-
 stages:
 - stage: Build
   displayName: Build stage
@@ -25,15 +12,15 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: $(vmImageName)
+      vmImage: ubuntu-latest
     steps:
     - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
+        repository: myapp
         dockerfile: $(Build.SourcesDirectory)/Dockerfile
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: e3553e36-0ade-4399-a77f-7a06832d2bc8
         tags: latest
 
     - publish : manifests
@@ -46,7 +33,7 @@ stages:
   - deployment: Deploy
     displayName: Deploy
     pool:
-      vmImage: $(vmImageName)
+      vmImage: ubuntu-latest
     environment: 'n2huy94myfirstappnode.default'
     strategy:
       runOnce:
