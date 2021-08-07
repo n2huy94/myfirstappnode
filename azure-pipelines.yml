@@ -34,8 +34,7 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(Build.SourcesDirectory)/Dockerfile
         containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+        tags: latest
 
     - publish : manifests
       artifact: manifests
