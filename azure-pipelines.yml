@@ -48,7 +48,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'n2huy94myfirstappnode-4470.default'
+    environment: 'n2huy94myfirstappnode.default'
     strategy:
       runOnce:
         deploy:
@@ -61,5 +61,5 @@ stages:
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
               containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+                $(containerRegistry)/$(imageRepository):latest
 
