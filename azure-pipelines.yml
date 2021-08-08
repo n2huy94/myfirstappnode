@@ -21,7 +21,7 @@ stages:
         repository: myapp
         dockerfile: $(Build.SourcesDirectory)/Dockerfile
         containerRegistry: e3553e36-0ade-4399-a77f-7a06832d2bc8
-        tags: latest
+        tags: $(Build.BuildNumber)
 
     - publish : manifests
       artifact: manifests
@@ -46,5 +46,5 @@ stages:
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
-              containers: huynguyencontainer.azurecr.io/myapp:latest
+              containers: huynguyencontainer.azurecr.io/myapp:$(Build.BuildNumber)
 
