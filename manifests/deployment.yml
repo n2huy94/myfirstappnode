@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: my-first-app-container
-        image: huynguyencontainer.azurecr.io/myapp:latest
+        image: huynguyencontainer.azurecr.io/myapp:v1
         resources:
           limits:
             memory: "128Mi"
