@@ -24,10 +24,13 @@ stages:
         repository: myapp
         dockerfile: $(Build.SourcesDirectory)/Dockerfile
         containerRegistry: e3553e36-0ade-4399-a77f-7a06832d2bc8
-        tags: $(tag)
+        tags: |
+          $(tag)
 
-    - upload : manifests
-      artifact: manifests
+    - task: PublishPipelineArtifact@1
+      inputs:
+        artifactName: 'manifests'
+        path: 'manifests'
 
 - stage: Deploy
   displayName: Deploy stage
@@ -42,12 +45,17 @@ stages:
       runOnce:
         deploy:
           steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'manifests'
+              downloadPath: '$(Pipeline.Workspace)/manifests'
+
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/deployment.yml
-                $(Pipeline.Workspace)/service.yml
+                $(Pipeline.Workspace)/manifests/deployment.yml
+                $(Pipeline.Workspace)/manifests/service.yml
               containers: huynguyencontainer.azurecr.io/myapp:$(tag)
 
