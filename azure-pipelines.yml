@@ -5,6 +5,9 @@
 trigger:
 - master
 
+variables:
+  tag: '$(Build.BuildId)'
+
 stages:
 - stage: Build
   displayName: Build stage
@@ -21,9 +24,10 @@ stages:
         repository: myapp
         dockerfile: $(Build.SourcesDirectory)/Dockerfile
         containerRegistry: e3553e36-0ade-4399-a77f-7a06832d2bc8
-        tags: $(Build.BuildNumber)
+        tags: |
+          $(tag)
 
-    - publish : manifests
+    - upload : manifests
       artifact: manifests
 
 - stage: Deploy
@@ -46,5 +50,5 @@ stages:
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
-              containers: huynguyencontainer.azurecr.io/myapp:$(Build.BuildNumber)
+              containers: huynguyencontainer.azurecr.io/myapp:$(tag)
 
