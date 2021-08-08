@@ -24,7 +24,7 @@ stages:
         repository: myapp
         dockerfile: $(Build.SourcesDirectory)/Dockerfile
         containerRegistry: e3553e36-0ade-4399-a77f-7a06832d2bc8
-        tags: v1
+        tags: $(tag)
 
     - upload : manifests
       artifact: manifests
@@ -47,7 +47,7 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
-              containers: huynguyencontainer.azurecr.io/myapp:v1
+                $(Pipeline.Workspace)/deployment.yml
+                $(Pipeline.Workspace)/service.yml
+              containers: huynguyencontainer.azurecr.io/myapp:$(tag)
 
