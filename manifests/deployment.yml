@@ -12,7 +12,7 @@ spec:
         app: myapp
     spec:
       containers:
-      - name: HuyNguyenContainer
+      - name: myapp
         image: huynguyencontainer.azurecr.io/myapp
         resources:
           limits:
