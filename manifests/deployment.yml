@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-first-app-deployment
+  name: myapp
 spec:
   selector:
     matchLabels:
-      app: my-first-app-pod
+      app: myapp
   template:
     metadata:
       labels:
-        app: my-first-app-pod
+        app: myapp
     spec:
       containers:
-      - name: my-first-app-container
-        image: huynguyencontainer.azurecr.io/myapp:v1
+      - name: HuyNguyenContainer
+        image: huynguyencontainer.azurecr.io/myapp
         resources:
           limits:
             memory: "128Mi"
